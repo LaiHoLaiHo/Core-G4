@@ -1,0 +1,33 @@
+#使用groupby 語法分組
+RDZ1 = RDZD.groupby("groupodd")
+#後面是要分組的column
+
+
+###################################################################
+
+#取出分組
+RDZ1m = RDZ1.get_group("-1")
+
+##分組輸出很多檔案
+#檔名也因為for loop so it is different from each other
+for i, g in RDZD.groupby('groupodd'):
+     g.to_csv('{}.csv'.format(i.split('/')[0]), index=False)
+    
+
+for i, g in RDZD.groupby('groupeven'):
+     g.to_csv('{}.csv'.format(i.split('/')[0]), index=False)
+
+########################
+##分別輸出圖  但存不起來  ####後來發現要先存在秀
+#位址自己改
+import matplotlib.pyplot as plt
+for name in RDZD.groupby(['groupodd']).size().index:
+    Ra = RDZD[RDZD['groupodd'].values == name]['Ra']
+    Dec = RDZD[RDZD['groupodd'].values == name]['Dec']
+    plt.scatter(Ra.values,Dec.values, s = 0.3)
+    plt.show()
+    plt.savefig("C:\\Cosmology Project\\0409group\\{}.png".format(i.split('/')[0]), index=False)
+    
+
+
+
