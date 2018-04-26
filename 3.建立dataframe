@@ -1,0 +1,16 @@
+
+import pandas as pd
+
+###別忘記參數自己改
+#Dataframe就是  python裡面的excel
+####建立 data frame  命名  標題  index自動設定為0.12
+RDZ = pd.DataFrame(data5, columns=['Ra','Dec','zbest'])
+
+
+
+##儲存文件就看這個網站吧
+'''接下来，我们可以用pandas.to_csv函数，把这个DataFrame存为一个csv文件，pandas里面存文件的函数名称基本都是这样一个格式，比如pandas.to_pickle等。这里有两个参数index和header，选False的话，index和columns的名称就不会存入文件。
+df.to_csv('births1880.csv',index=False,header=False)
+
+來自 <https://zhuanlan.zhihu.com/p/26218273> '''
+
