@@ -1,0 +1,19 @@
+#直接參考網址
+#####插入
+#https://www.jianshu.com/p/7df2593a01ce
+#####刪除
+#https://www.jianshu.com/p/67e67c7034f6
+
+
+#####
+'''儲存
+
+导出到CSV：
+1	df.to_csv('SomeTable.csv', index=False)
+导出到EXCEL：
+1	df.to_excel('SomeTable.xls', index=False)
+导出到TXT：
+1	df.to_csv('SomeTable.txt', index=False)
+
+來自 <http://blog.topspeedsnail.com/archives/3394> 
+'''
