@@ -1,0 +1,12 @@
+
+
+#slt5s 是檔名 要自己改
+file = open('slt5s.txt', 'r')
+data = file.read() # 把所有資料進來
+file.close()
+
+
+
+#可自己印出結果如下
+#print(data[:10])
+#id R.A. De
