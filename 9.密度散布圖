@@ -24,6 +24,8 @@ print(hist)
 
 
 ###陣列輸出csv   hist is the thing be saved
+#下一次用這個檔案返回找座標
+#(開的話可以看到陣列)
 numpy.savetxt("bincount1.csv", hist, delimiter=",")
 
 
