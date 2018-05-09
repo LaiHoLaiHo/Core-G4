@@ -1,0 +1,80 @@
+##找密度矩陣
+#這邊是這樣的，這邊其實也是一個劃2Dhistogram 的東西，但我們資料太多，這個畫不出來，但是統計數字是可以的
+import matplotlib.pyplot as plt
+import numpy as np
+#這邊就是Rad Decd 我在弄的時候好像要換成陣列 numpy array 
+#我也不確定如果直接從dataframe 會怎樣
+x = R
+y = D
+
+fig, ax = plt.subplots()
+ax.set_aspect("equal")
+hist, xbins, ybins, im = ax.hist2d(x,y, bins=np.arange(-16.0, 16.0, 0.5))
+
+for i in range(len(ybins)-1):
+    for j in range(len(xbins)-1):
+        ax.text(xbins[j]+0.5,ybins[i]+0.5, hist[i,j], 
+                color="w", ha="center", va="center", fontweight="bold")
+
+
+plt.savefig("C:\\Cosmology Project\\0409group\\{}.png".format(i.split('/')[0]), index=False)
+plt.show()
+
+print(hist)
+
+
+###陣列輸出csv   hist is the thing be saved
+numpy.savetxt("bincount1.csv", hist, delimiter=",")
+
+
+###成一維數據
+bincount1 = []
+for i in hist:
+    for j in i:
+        bincount1.append(j)
+
+
+###保留0 做散布圖
+a = np.array(bincount1)
+plt.hist(a, bins = range(18), histtype='bar', align='left',alpha=0.75, rwidth=0.8)
+plt.title('bin count')
+plt.xlabel('galaxy number in a bin')
+plt.ylabel('bin amount')
+new_ticks = np.linspace(0, 18, 19) 
+plt.xticks(list(new_ticks))
+plt.savefig("C:\\Cosmology Project\\0503\\bin1hist.png", dpi=300)
+
+plt.show()
+
+
+ 
+
+###篩出0的部分 做散布圖
+b = []
+for i in bincount1:
+    if i != 0:
+        b.append(i)      
+a = np.array(b)
+
+plt.hist(a, bins = range(18), histtype='bar', align='left',alpha=0.75, rwidth=0.8)
+plt.title('bin count')
+plt.xlabel('galaxy number in a bin')
+plt.ylabel('bin amount')
+new_ticks = np.linspace(0, 18, 19) 
+plt.xticks(list(new_ticks))
+plt.savefig("C:\\Cosmology Project\\0503\\bin1hist1.png", dpi=300)
+
+plt.show()
+
+
+
+
+ 
+
+
+#####算平均值以及邊準差
+np.mean(a)
+Out[170]: 4.1531565184908477
+
+np.std(a)
+Out[171]: 2.2610047838473895
