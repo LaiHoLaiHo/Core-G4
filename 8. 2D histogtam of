@@ -1,0 +1,41 @@
+#要先在python上用pip下載這個程式  plotly 
+#我這個也是參考網路官網上的繪圖方式
+#分別對應應該可以讀懂，也可以自己做一次就知道
+#缺甚麼參數就上網找吧
+import plotly.plotly as py
+import plotly.graph_objs as go
+
+import numpy as np
+#要先用先前的方法先創一個dataframe 叫  B1  裡面有上一次距離的參數  Rad Decd
+x0 = B1['Rad']
+y0 = B1['Decd']
+
+x = np.concatenate([x0, x1])
+y = np.concatenate([y0, y1])
+
+trace2 = go.Histogram2d(
+    x=x0,
+    y=y0,
+    colorscale='YIGnBu',
+    zauto=True,
+    autobinx=False,
+    xbins=dict(start=-16, end=16, size=0.5),
+    autobiny=False,
+    ybins=dict(start=-16, end=16, size=0.5),
+)
+
+layout = go.Layout(
+    title='Galaxy density',
+    xaxis=dict( ticks='', title='Ra distance(Mpc)', showgrid=False, zeroline=False, nticks=20, autorange='reversed' ),
+    yaxis=dict( ticks='', title='Dec distance(Mpc)', showgrid=False, zeroline=False, nticks=20 ),
+    autosize=False,
+    height=1000,
+    width=1000,
+    hovermode='closest',
+
+)
+data = [trace2]
+fig = go.Figure(data=data, layout=layout)
+
+py.plot(fig)
+#之後你會得到一個網址，那就是你的圖了
