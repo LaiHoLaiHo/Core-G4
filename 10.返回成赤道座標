@@ -1,0 +1,89 @@
+
+#使大於等於10的矩陣元素變成1其他變成0
+import numpy as np
+import matplotlib.pyplot as plt
+B = []
+import csv
+f = open('binc1array.csv', 'r')
+for row in csv.reader(f):
+    B.append(row)
+f.close()
+#B is a str list
+Bf = []
+for i in B:
+    for j in i:
+        Bf.append(int(float(j)))
+#Bf is a 1D int list
+Bf01 = []
+for i in Bf:
+    if i > 9:
+        Bf01.append(1.0)
+    else:
+        Bf01.append(0.0)
+#Bf01  is 01 1D list
+
+lst = Bf01
+Bgr = [lst[i:i+64] for i in range(0, len(lst), 64)]
+#Bgr is a 2D  int list
+#mat 是變成矩陣
+Bmat = np.mat(Bgr)
+
+nonzero = Bmat.nonzero()
+
+###################建議分開執行#################
+print(nonzero)
+#這裡會看到一個2D array 是矩陣中的那些元素不為0   就是我們熟悉的  ij  第i 之類
+#######################################
+
+#現在nonzero 矩陣就顯示著在那個2D histogram 中，那些格子>9
+#將位置換回 赤經赤緯
+#這裡要注意資料型態   list, float, numpy array, string
+import math as m
+import operator as o
+Mx=[]
+My=[]
+#nonzero[0] is Ra bin
+for i in nonzero[0]:
+    Mx.append(float(i))
+ #nonzero[1] is Dec bin   
+for i in nonzero[1]:
+    My.append(float(i))
+#Mx is float
+#以下將原本矩陣的格子座標(ij)換回  離中心多少百萬秒差距
+xd = []
+yd = []
+for i in Mx:
+    xd.append(i*0.5-16)
+for i in My:
+    yd.append(i*0.5-16)
+#xd is Mpc to the center
+print(xd)
+print(yd)
+###################################################
+
+
+
+Ra = []
+Dec = []
+#oocosDec = one over cos Dec
+oocosDec= []
+#RaN為沒有餘弦修正的Ra
+RaN = []
+#at z=0.2 the angular distance to real distance   3.171kpc/=arcsec 3.6*3.171Mpc/degree
+#記得補回  Ra 270  Dec 66.5
+for i in yd:
+    Dec.append(i/3.6/3.171+66.5)
+for i in Dec:
+    oocosDec.append(1/m.cos(i/360*2*m.pi))
+for i in xd:    
+    RaN.append(i/3.6/3.171)
+將RaN  and oocosDec  一對一元素相乘
+Ra = [a*b+270 for a, b in zip(RaN, oocosDec)]
+
+print(Ra)
+print(Dec)
+輸出1D數列(懶得想二維了)
+RaDec = Ra+Dec
+RaDec = np.array(RaDec)
+np.savetxt('Clusters in zbin1row.csv', RaDec, delimiter=',')
+
