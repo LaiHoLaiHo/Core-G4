@@ -9,11 +9,20 @@ for i, g in RDZD.groupby('groupeven'):
 
 ########################
 ##分別輸出圖  但存不起來  ####後來發現要先存在秀
-import matplotlib.pyplot as plt
+##這個後來發現是錯的
+'''import matplotlib.pyplot as plt
 for name in RDZD.groupby(['groupodd']).size().index:
     Ra = RDZD[RDZD['groupodd'].values == name]['Ra']
     Dec = RDZD[RDZD['groupodd'].values == name]['Dec']
     plt.scatter(Ra.values,Dec.values, s = 0.3)
     plt.show()
-    plt.savefig("C:\\Cosmology Project\\0409group\\{}.png".format(i.split('/')[0]), index=False)
-    
+    plt.savefig("C:\\Cosmology Project\\0409group\\{}.png".format(i.split('/')[0]), index=False)'''
+#下面這個才對    
+#好像一定要秀才正常
+for name in RDZD.groupby(['groupodd']).size().index:
+    Ra = RDZD[RDZD['groupodd'].values == name]['Ra']
+    Dec = RDZD[RDZD['groupodd'].values == name]['Dec']
+    plt.scatter(Ra.values,Dec.values, s = 0.3)
+    plt.title(str(name))
+    plt.savefig(str(name) + ".png")
+    plt.show()
