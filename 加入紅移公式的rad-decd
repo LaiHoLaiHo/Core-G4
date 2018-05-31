@@ -81,7 +81,7 @@ for file_ in filenames:
     #終於要換距離了  在z(紅移) = 0.2 那邊「視角的距離」  一角秒等於 3.171 千角秒差(kpc/")  所以  一度等於 3.6*3.171 百萬角秒差(Mpc/degree) 就是 R = r*d theta(弧長計算)
     B1['Rad'] =  ((299792.458/73.2)*((B1.P-1)/(B1.P+1))* B1.cosDec)*(B1.Rax)*2*math.pi/360
 
-    B1['Decd'] = B1.Decy*3.6*3.171
+    B1['Decd'] = ((299792.458/73.2)*((B1.P-1)/(B1.P+1))* B1.cosDec)*B1.Decy*2*math.pi/360
     
     #
 
