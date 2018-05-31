@@ -1,0 +1,57 @@
+#匯出密度矩陣
+x = Rad
+y = Decd
+
+a=(max(Rad)-min(Rad))/64
+b=(max(Decd)-min(Decd))/64
+
+fig, ax = plt.subplots()
+ax.set_aspect("equal")
+hist, xbins, ybins, im = ax.hist2d(x,y, bins=64)
+
+for i in range(len(ybins)-1):
+    for j in range(len(xbins)-1):
+        ax.text(xbins[j]+a,ybins[i]+b, hist[i,j],
+                color="w", ha="center", va="center", fontweight="bold")
+
+
+print(hist)
+
+#存成csv檔
+np.savetxt("bincount1.csv", hist, delimiter=",")
+
+
+###成一維數據
+bincount1 = []
+for i in hist:
+    for j in i:
+        bincount1.append(j)
+
+
+###保留0 做散布圖
+a = np.array(bincount1)
+plt.hist(a, bins = range(18), histtype='bar', align='left',alpha=0.75, rwidth=0.8)
+plt.title('bin count')
+plt.xlabel('galaxy number in a bin')
+plt.ylabel('bin amount')
+new_ticks = np.linspace(0, 18, 19) 
+plt.xticks(list(new_ticks))
+
+plt.show()
+
+
+###篩出0的部分 做散布圖
+b = []
+for i in bincount1:
+    if i != 0:
+        b.append(i)      
+a = np.array(b)
+
+plt.hist(a, bins = range(18), histtype='bar', align='left',alpha=0.75, rwidth=0.8)
+plt.title('bin count')
+plt.xlabel('galaxy number in a bin')
+plt.ylabel('bin amount')
+new_ticks = np.linspace(0, 18, 19) 
+plt.xticks(list(new_ticks))
+
+plt.show()
