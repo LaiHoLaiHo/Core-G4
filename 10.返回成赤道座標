@@ -27,7 +27,7 @@ Bgr = [lst[i:i+64] for i in range(0, len(lst), 64)]
 #Bgr is a 2D  int list
 #mat 是變成矩陣
 Bmat = np.mat(Bgr)
-
+#nonzero 是一個直接輸出矩陣當中飛零元素座標位置的工具
 nonzero = Bmat.nonzero()
 
 ###################建議分開執行#################
