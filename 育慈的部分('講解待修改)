@@ -20,6 +20,7 @@ for file_ in filenames:
         B.append(row)
         #print(B[:10])
         
+    #建立dataframe
     B1 = pd.DataFrame(B, columns=['id','Raf','Decf','zbest', 'groupodd', 'groupeven','Rax', 'Decy', 'Decrad', 'cosDec','xxx', 'yyy', 'Rad', 'Decd'])
     print(B1[:10])       
 
@@ -53,6 +54,7 @@ for file_ in filenames:
     Decd = np.array(Decd)
     print(Decd[:10])
 
+    #輸出2D散布圖
     import matplotlib.pyplot as plt
     from matplotlib import colors
     x = Rad
@@ -65,6 +67,7 @@ for file_ in filenames:
     x = Rad
     y = Decd
     
+    #2D hist，匯出密度矩陣 64*64
     a=(max(Rad)-min(Rad))/64
     b=(max(Decd)-min(Decd))/64
 
@@ -134,6 +137,7 @@ for file_ in filenames:
     d = int(m+sthr)+1
     print(d)
     
+    #將1D list換回 64*64矩陣
     B = []
     for i in a:
         if i > d-1:
@@ -145,5 +149,6 @@ for file_ in filenames:
     
     Bmat = np.array(B).reshape(64,64)
     print(Bmat)
-
+    
+    #存成匯出37張0,1密度矩陣 64*64
     np.savetxt('Bmat_test'+s, Bmat, delimiter=',')
