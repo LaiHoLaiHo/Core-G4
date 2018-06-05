@@ -1,0 +1,84 @@
+
+import pandas as pd
+import glob 
+import csv
+import numpy as np
+
+path =r'C:\Users\ASUS\Desktop\Python\density' # 檔案們的路徑
+
+filenames = glob.glob(path + "/*.csv")
+
+#print(filenames)
+
+for file_ in filenames:
+    s = file_[58:60]
+    print (s)
+    PPP = open(file_,'r')
+
+    BB = []
+
+    for row in csv.reader(PPP):
+        BB.append(row)
+
+    #print(B[:10])
+    Bmat = np.mat(BB)
+    nonzero = Bmat.nonzero()
+#現在nonzero 矩陣就顯示著在那個2D histogram 中，那些格子>9
+#將位置換回 赤經赤緯
+#這裡要注意資料型態   list, float, numpy array, string
+    import math as m
+    import operator as o
+    Mx=[]
+    My=[]
+#nonzero[0] is Ra bin
+    for i in nonzero[0]:
+        Mx.append(float(i))
+ #nonzero[1] is Dec bin   
+    for i in nonzero[1]:
+        My.append(float(i))
+    #print(Mx[:10])
+    #print(My[:10])
+        
+#Mx is float
+#以下將原本矩陣的格子座標(ij)換回  離中心多少百萬秒差距
+    xd = []
+    yd = []
+    for i in Mx:
+        xd.append(i*0.5-16)
+    for i in My:
+        yd.append(i*0.5-16)
+#xd is Mpc to the center
+    #print(xd[:10])
+    #print(yd[:10])
+###################################################
+
+
+
+    Ra = []
+    Dec = []
+    DecN = []
+#oocosDec = one over cos Dec
+    oocosDec= []
+#RaN為沒有餘弦修正的Ra
+    RaN = []
+#at z=0.2 the angular distance to real distance   3.171kpc/=arcsec 3.6*3.171Mpc/degree
+#記得補回  Ra 270  Dec 66.5
+    for i in yd:
+        DecN.append(i/2/m.pi*360)
+    for i in DecN:
+        oocosDec.append(1/((299792.458/73.2)*((B1.P-1)/(B1.P+1)))/m.cos(i/360*2*m.pi))
+    for i in xd:    
+        RaN.append(i/2/m.pi*360)
+    #將RaN  and oocosDec  一對一元素相乘
+    Ra = [a*b+270 for a, b in zip(RaN, oocosDec)]
+    Dec= [a*b+66.5 for a, b in zip(DecN, oocosDec)]
+
+    #print(Ra[:3])
+    #print(Dec[:3])
+    LK=[]
+    for each in zip(Ra, Dec):
+        LK.append(each)
+    np.savetxt('Clusters in zbin1row.csv'+s, LK)
+
+#    RaDec = Ra+Dec
+ #   RaDec = np.array(RaDec)
