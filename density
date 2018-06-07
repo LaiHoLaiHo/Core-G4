@@ -5,12 +5,15 @@ import numpy as np
 import matplotlib as mpl
 
 for u in range(2):
+    #讀csv檔
     RDZO = []
     import csv
     f = open('RDZdf.csv', 'r')
     for row in csv.reader(f):
         RDZO.append(row)
     f.close()
+    
+    
     ###############################
     ##建立dataframe
     #注意資料型態
@@ -21,6 +24,8 @@ for u in range(2):
     y = RDZ.Dec.astype(float) #赤緯
     z = RDZ.zbest #紅移
     ####################
+    
+    
     #將所有紅移做切片存入新的陣列中
     ran = len(z)
     
@@ -41,17 +46,17 @@ for u in range(2):
             k += 1
 
     RDZ1 = pd.DataFrame(g, columns=['Ra1','Dec1','zbest1'])
-    X = RDZ1.Ra1.astype(float) #赤經
-    Y = RDZ1.Dec1.astype(float) #赤緯
-    Z = RDZ1.zbest1.astype(float) #紅移
+    X = RDZ1.Ra1.astype(float) 
+    Y = RDZ1.Dec1.astype(float) 
+    Z = RDZ1.zbest1.astype(float) 
 
 
-    # Obtain data from file.
+    # 設定最大值最小值
     m1, m2 = X, Y
     xmin, xmax = 266, 274
     ymin, ymax = 65, 68
 
-    # Perform a kernel density estimate (KDE) on the data
+    # 核密度分析
     A, B = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
     positions = np.vstack([A.ravel(), B.ravel()])
     values = np.vstack([m1, m2])
@@ -61,14 +66,14 @@ for u in range(2):
     # Define the number that will determine the integration limits
     x1, y1 = 274, 68
 
-    # Plot the results:
+    ## 繪圖
     import matplotlib.pyplot as plt
     
-    # Set limits
+    # 設定圖片最大值最小值
     plt.xlim(xmin,xmax)
     plt.ylim(ymin,ymax)
     
-    # KDE density plot
+    # 繪出密度圖
     plt.imshow(np.rot90(f), cmap = 'nipy_spectral' ,extent=[xmin, xmax, ymin, ymax])
     plt.gca().invert_xaxis() 
     plt.colorbar()
