@@ -21,6 +21,7 @@ for u in range(2):
     y = RDZ.Dec.astype(float) #赤緯
     z = RDZ.zbest #紅移
     ####################
+    #將所有紅移做切片存入新的陣列中
     ran = len(z)
     
     j = 0
@@ -73,10 +74,14 @@ for u in range(2):
     plt.colorbar()
     plt.clim(0.00, 0.1);
     
+    #調整圖片大小
     fig = plt.gcf()
     fig.set_size_inches(20.5, 10.5)
     
+    #圖片的title, x label ,y label
     plt.xlabel('Right ascension')
     plt.ylabel('Declination')
     plt.title("Redshift =" + str(p), fontsize=20)
+    
+    #顯示圖片
     plt.show()
