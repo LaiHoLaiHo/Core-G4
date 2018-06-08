@@ -5,6 +5,47 @@ import numpy as np
 import matplotlib as mpl
 
 for u in range(2):
+    
+    ##找星系團
+    #開啟WCH3中的檔案
+    RDZO1 = []
+    import csv
+    f = open('WCH3/final.csv', 'r')
+    for row in csv.reader(f):
+        RDZO1.append(row)
+    f.close()
+    
+    #建立dataframe
+    import pandas as pd
+    RDZ = pd.DataFrame(RDZO1, columns=['Ra','Dec','zbest'])
+    RDZ.zbest = RDZ.zbest.astype(float)#將zbest column 全部變浮點數
+    a = RDZ.Ra.astype(float) #赤經
+    b = RDZ.Dec.astype(float) #赤緯
+    c = RDZ.zbest #紅移
+    
+    #將所有紅移做切片存入新的陣列中
+    ran = len(c)
+    j1 = 0
+    k1 = 0
+    n = 0.01 * u + 0.1 
+    m = 0.01 * u + 0.2
+    o = (m + n)/2 
+    
+    for i in range(ran):
+        if c[i] >= n and c[i] <= m:
+            j1 += 1
+    g1 = [[None] * 3 for l in range(j1)]
+    for i in range(ran):
+        if c[i] >= n and c[i] <= m:
+            g1[k1] = [a[i],b[i],c[i]]
+            k1 += 1
+            
+    RDZ2 = pd.DataFrame(g1, columns=['Ra2','Dec2','zbest2'])
+    J = RDZ2.Ra2.astype(float) #赤經
+    Q = RDZ2.Dec2.astype(float) #赤緯
+    K = RDZ2.zbest2.astype(float) #紅移
+    
+    ##計算密度
     #讀csv檔
     RDZO = []
     import csv
@@ -12,18 +53,14 @@ for u in range(2):
     for row in csv.reader(f):
         RDZO.append(row)
     f.close()
-    
-    
-    ###############################
-    ##建立dataframe
-    #注意資料型態
+   
+    #建立dataframe
     import pandas as pd
     RDZ = pd.DataFrame(RDZO, columns=['Ra','Dec','zbest'])
     RDZ.zbest = RDZ.zbest.astype(float)#將zbest column 全部變浮點數
     x = RDZ.Ra.astype(float) #赤經
     y = RDZ.Dec.astype(float) #赤緯
     z = RDZ.zbest #紅移
-    ####################
     
     
     #將所有紅移做切片存入新的陣列中
@@ -82,6 +119,9 @@ for u in range(2):
     #調整圖片大小
     fig = plt.gcf()
     fig.set_size_inches(20.5, 10.5)
+    
+    #標出星系團位置
+    plt.scatter(J, Q, c='r', s=10)
     
     #圖片的title, x label ,y label
     plt.xlabel('Right ascension')
