@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib as mpl
 
+count = 0
+
 for u in range(2):
     
     ##找星系團
@@ -127,6 +129,10 @@ for u in range(2):
     plt.xlabel('Right ascension')
     plt.ylabel('Declination')
     plt.title("Redshift =" + str(p), fontsize=20)
+    
+    #儲存圖片
+    fig.savefig(str(count) + ".png")
+    count += 1
     
     #顯示圖片
     plt.show()
