@@ -1,0 +1,175 @@
+import pandas as pd
+import math as m
+import csv
+import numpy
+import glob 
+import matplotlib.pyplot as plt
+
+path =r'C:\findclusters\chh1' # 檔案們的路徑
+
+filenames = glob.glob(path + "/*.csv")
+
+#print(filenames)
+
+for file_ in filenames:
+    s = file_[20:22]
+    print (s)
+    ddd
+    i = open(file_,'r')
+
+    B = []
+
+    for row in csv.reader(i):
+        B.append(row)
+
+    
+    #print(B[:10])
+    B=numpy.delete(B,0,axis=0)
+    #print(B[:10])
+
+    #build a dataframe
+
+    B1 = pd.DataFrame(B, columns=['id','Ra','Dec','zbest', 'groupodd', 'groupeven'])
+    #因為輸出為字串，要做數據處理要將之轉換為浮點數
+#    print(B1[:10])
+
+    Raf = pd.to_numeric(B1.Ra, errors = 'ingnore')
+
+    Decf = pd.to_numeric(B1.Dec, errors = 'ingnore')
+
+    B1.insert(1, 'Raf', Raf)
+
+    B1.insert(2, 'Decf', Decf)
+
+    #將源字串刪除
+    del B1['Ra']
+
+    del B1['Dec']
+
+    #以  Ra 270 當作中心  DEC  66.5  當作中心
+    #先算與中心距離多少度
+
+    Rax = B1.Raf-270.0
+
+    Decy = B1.Decf-66.5
+
+    B1['Rax'] = Rax
+
+    B1['Decy'] = Decy
+
+    import math
+
+    ##如同EXCEl一樣，做整個直行的公式計算將度換弧度
+    Decrad = B1.Decf*2*math.pi/360
+
+    B1['Decrad'] = Decrad
+
+    cosDec = []
+
+    #因為球座標關係，要乘COS  建議自己想一下，不懂再問我
+    for L in Decrad:
+        cosDec.append(math.cos(L))
+
+    cosDec = pd.DataFrame(cosDec, columns=['cosDec'])
+
+    B1['cosDec'] = cosDec
+  #  print(B1)
+    if s=='1.':
+        P=0.2
+    elif s=='2.':
+        P=0.3
+    elif s=='3.':
+        P=0.4
+    elif s=='4.':
+        P=0.5
+    elif s=='5.':
+        P=0.6
+    elif s=='6.':
+        P=0.7
+    elif s=='7.':
+        P=0.8
+    elif s=='8.':
+        P=0.9
+    elif s=='9.':
+        P=1.0001
+    elif s=='10':
+        P=1.1
+    elif s=='11':
+        P=1.2
+    elif s=='12':
+        P=1.3
+    elif s=='13':
+        P=1.4
+    elif s=='14':
+        P=1.5
+    elif s=='15':
+        P=1.6
+    elif s=='16':
+        P=1.7
+    elif s=='17':
+        P=1.8
+    elif s=='18':
+        P=1.9
+    elif s=='19':
+        P=2.0
+    elif s=='20':
+        P=2.1
+    elif s=='21':
+        P=2.2
+    elif s=='22':
+        P=2.3
+    elif s=='23':
+        P=2.4
+    elif s=='24':
+        P=2.5
+    elif s=='25':
+        P=2.6
+    elif s=='26':
+        P=2.7
+    elif s=='27':
+        P=2.8
+    elif s=='28':
+        P=2.9
+    elif s=='29':
+        P=3.0
+    elif s=='30':
+        P=3.1
+    elif s=='31':
+        P=3.2
+    elif s=='32':
+        P=3.3
+    elif s=='33':
+        P=3.4
+    elif s=='34':
+        P=3.5
+    elif s=='35':
+        P=3.6
+    elif s=='36':
+        P=3.7
+    elif s=='37':
+        P=3.8
+    zbest=m.pow(P+1, 2)
+
+
+
+    #終於要換距離了  在z(紅移) = 0.2 那邊「視角的距離」  一角秒等於 3.171 千角秒差(kpc/")  所以  一度等於 3.6*3.171 百萬角秒差(Mpc/degree) 就是 R = r*d theta(弧長計算)
+    B1['Rad'] = ((299792.458/73.2)*((zbest-1)/(zbest+1))* B1.cosDec)*(B1.Rax)*2*math.pi/360
+    B1['Decd'] = ((299792.458/73.2)*((zbest-1)/(zbest+1)))*(B1.Decy)*2*math.pi/360
+    
+
+    #
+
+    #看圖
+
+    
+    plt.scatter(B1.Rad, B1.Decd, s = 0.03)
+    M=s[0:2]
+
+    plt.savefig(M+'.png')
+    plt.show()
+#圖片反向，數據點不變
+     #存檔
+    
+    
+    
+    B1.to_csv('distance_bin'+s+'.csv', index = False, header = False)
