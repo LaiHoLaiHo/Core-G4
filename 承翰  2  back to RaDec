@@ -10,7 +10,8 @@ filenames = glob.glob(path + "/*.csv")
 
 
 for file_ in filenames:
-    s = file_[20:22]
+    s = file_[21:23]
+     s = s.strip('.')
     print (s)
 
     PPP = open(file_,'r')
@@ -91,5 +92,5 @@ for file_ in filenames:
     for each in zip(Ra, Dec):
         LK.append(each)
     print (LK[:3])
-    np.savetxt('Clusters in zbin'+s+'row.csv', LK, delimiter = ',')
+    np.savetxt('C:\\findclusters\\wch2Clusters in zbin'+s+'row.csv', LK, delimiter = ',')
 
