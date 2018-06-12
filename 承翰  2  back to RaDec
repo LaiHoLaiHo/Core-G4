@@ -90,5 +90,5 @@ for file_ in filenames:
     for each in zip(Ra, Dec):
         LK.append(each)
     
-    np.savetxt('C:\\findclusters\\wch2Clusters in zbin'+s+'row.csv', LK, delimiter = ',')
+    np.savetxt('C:\\findclusters\\wch2\\Clusters in zbin'+s+'row.csv', LK, delimiter = ',')
 
