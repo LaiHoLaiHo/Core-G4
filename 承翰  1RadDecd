@@ -12,9 +12,10 @@ filenames = glob.glob(path + "/*.csv")
 #print(filenames)
 
 for file_ in filenames:
-    s = file_[20:22]
+    s = file_[21:23]
+    s = s.strip('.')
     print (s)
-    ddd
+    
     i = open(file_,'r')
 
     B = []
@@ -74,23 +75,23 @@ for file_ in filenames:
 
     B1['cosDec'] = cosDec
   #  print(B1)
-    if s=='1.':
+    if s=='1':
         P=0.2
-    elif s=='2.':
+    elif s=='2':
         P=0.3
-    elif s=='3.':
+    elif s=='3':
         P=0.4
-    elif s=='4.':
+    elif s=='4':
         P=0.5
-    elif s=='5.':
+    elif s=='5':
         P=0.6
-    elif s=='6.':
+    elif s=='6':
         P=0.7
-    elif s=='7.':
+    elif s=='7':
         P=0.8
-    elif s=='8.':
+    elif s=='8':
         P=0.9
-    elif s=='9.':
+    elif s=='9':
         P=1.0001
     elif s=='10':
         P=1.1
@@ -161,15 +162,15 @@ for file_ in filenames:
 
     #看圖
 
-    
+    '''
     plt.scatter(B1.Rad, B1.Decd, s = 0.03)
     M=s[0:2]
 
-    plt.savefig(M+'.png')
+    plt.savefig(M+'mm.png')
     plt.show()
 #圖片反向，數據點不變
      #存檔
     
+    '''
     
-    
-    B1.to_csv('distance_bin'+s+'.csv', index = False, header = False)
+    B1.to_csv('C:\\findclusters\\wch1\\distance_bin'+s+'.csv', index = False, header = False)
