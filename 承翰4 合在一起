@@ -14,4 +14,4 @@ for x in filenames:
     print (B[:2])
 B1 = pd.DataFrame(B)
 
-B1.to_csv('final.csv', index = False, header= False)
+B1.to_csv('C:\\findclusters\\final.csv', index = False, header= False)
