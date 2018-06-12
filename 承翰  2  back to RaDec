@@ -11,7 +11,7 @@ filenames = glob.glob(path + "/*.csv")
 
 for file_ in filenames:
     s = file_[21:23]
-     s = s.strip('.')
+    s = s.strip('.')
     print (s)
 
     PPP = open(file_,'r')
@@ -27,14 +27,14 @@ for file_ in filenames:
             B1.append(float(j))
     BB = [B1[i:i+64] for i in range(0, len(B1), 64)]
     
-   # print(BB)
+  
 
     Bmat = np.mat(BB)
 
     Bmat.astype(np.int)
 
     nonzero = np.nonzero(Bmat)
-    #print(nonzero)
+    
 #現在nonzero 矩陣就顯示著在那個2D histogram 中，那些格子>9
 #將位置換回 赤經赤緯
 #這裡要注意資料型態   list, float, numpy array, string
@@ -52,8 +52,7 @@ for file_ in filenames:
  #nonzero[1] is Dec bin   
     for i in nonzero[1]:
         My.append(float(i))
-    #print(Mx[:10])
-   # print(My[:10])
+
     
     
  
@@ -66,8 +65,7 @@ for file_ in filenames:
     for i in My:
         yd.append((i-32)*0.5)
 #xd is Mpc to the center
-    #print(xd[:])
-   # print(yd[:])
+
 
     Ra = []
     Dec = []
@@ -75,7 +73,7 @@ for file_ in filenames:
     oocosDec= []
 #RaN為沒有餘弦修正的Ra
     RaN = []
-#at z=0.2 the angular distance to real distance   3.171kpc/=arcsec 3.6*3.171Mpc/degree
+
 #記得補回  Ra 270  Dec 66.5
     for i in yd:
         Dec.append(i/12.898832+66.5)
@@ -91,6 +89,6 @@ for file_ in filenames:
     LK=[]
     for each in zip(Ra, Dec):
         LK.append(each)
-    print (LK[:3])
+    
     np.savetxt('C:\\findclusters\\wch2Clusters in zbin'+s+'row.csv', LK, delimiter = ',')
 
