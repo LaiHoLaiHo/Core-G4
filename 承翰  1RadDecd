@@ -9,7 +9,7 @@ path =r'C:\findclusters\chh1' # 檔案們的路徑
 
 filenames = glob.glob(path + "/*.csv")
 
-#print(filenames)
+
 
 for file_ in filenames:
     s = file_[21:23]
@@ -24,15 +24,14 @@ for file_ in filenames:
         B.append(row)
 
     
-    #print(B[:10])
+    
     B=numpy.delete(B,0,axis=0)
-    #print(B[:10])
-
+    
     #build a dataframe
 
     B1 = pd.DataFrame(B, columns=['id','Ra','Dec','zbest', 'groupodd', 'groupeven'])
     #因為輸出為字串，要做數據處理要將之轉換為浮點數
-#    print(B1[:10])
+
 
     Raf = pd.to_numeric(B1.Ra, errors = 'ingnore')
 
@@ -74,7 +73,7 @@ for file_ in filenames:
     cosDec = pd.DataFrame(cosDec, columns=['cosDec'])
 
     B1['cosDec'] = cosDec
-  #  print(B1)
+  
     if s=='1':
         P=0.2
     elif s=='2':
@@ -160,17 +159,8 @@ for file_ in filenames:
 
     #
 
-    #看圖
-
-    '''
-    plt.scatter(B1.Rad, B1.Decd, s = 0.03)
-    M=s[0:2]
-
-    plt.savefig(M+'mm.png')
-    plt.show()
-#圖片反向，數據點不變
-     #存檔
     
-    '''
+
+  
     
     B1.to_csv('C:\\findclusters\\wch1\\distance_bin'+s+'.csv', index = False, header = False)
