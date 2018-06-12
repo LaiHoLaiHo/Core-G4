@@ -7,7 +7,7 @@ path =r'C:\findclusters\wch2' # 檔案們的路徑
 
 filenames = glob.glob(path + "/*.csv")
 
-#print(filenames)
+
 
 for file_ in filenames:
     s = file_[33:39]
@@ -95,6 +95,5 @@ for file_ in filenames:
         row.append(rr)
         B.append(row)
     
-    print(B[:2])
     B1 = pd.DataFrame(B)
     B1.to_csv('C:\\findclusters\\wch3\\last'+s+'.csv', index = False , header = False)
