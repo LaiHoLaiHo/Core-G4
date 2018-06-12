@@ -10,13 +10,14 @@ filenames = glob.glob(path + "/*.csv")
 #print(filenames)
 
 for file_ in filenames:
-    s = file_[32:38]
+    s = file_[33:39]
+    s = s.strip('.')
     print (s)
 
     i = open(file_,'r')
     B = []
 
-    if s=='zbin1.':
+    if s=='zbin1':
         rr='0.2'
     elif s=='zbin10':
         rr='1.1'
@@ -38,7 +39,7 @@ for file_ in filenames:
         rr='1.9'
     elif s=='zbin19':
         rr='2.0'
-    elif s=='zbin2.':
+    elif s=='zbin2':
         rr='0.3'
     elif s=='zbin20':
         rr='2.1'
@@ -60,7 +61,7 @@ for file_ in filenames:
         rr='2.9'
     elif s=='zbin29':
         rr='3.0'
-    elif s=='zbin3.':
+    elif s=='zbin3':
         rr='0.4'
     elif s=='zbin30':
         rr='3.1'
@@ -78,17 +79,17 @@ for file_ in filenames:
         rr='3.7'
     elif s=='zbin37':
         rr='3.8'
-    elif s=='zbin4.':
+    elif s=='zbin4':
         rr='0.5'
-    elif s=='zbin5.':
+    elif s=='zbin5':
         rr='0.6'
-    elif s=='zbin6.':
+    elif s=='zbin6':
         rr='0.7'
-    elif s=='zbin7.':
+    elif s=='zbin7':
         rr='0.8'
-    elif s=='zbin8.':
+    elif s=='zbin8':
         rr='0.9'
-    elif s=='zbin9.':
+    elif s=='zbin9':
         rr='1.0'
     for row in csv.reader(i):
         row.append(rr)
@@ -96,4 +97,4 @@ for file_ in filenames:
     
     print(B[:2])
     B1 = pd.DataFrame(B)
-    B1.to_csv('last'+s+'.csv', index = False , header = False)
+    B1.to_csv('C:\\findclusters\\wch3\\last'+s+'.csv', index = False , header = False)
