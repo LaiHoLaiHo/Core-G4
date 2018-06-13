@@ -3,7 +3,7 @@ import pandas as pd
 import glob 
 import csv
 
-path =r'C:\清大生活\物理系\計算物理概論\final project\distance_1' # 檔案們的路徑
+path =r'C:\findclusters\wch1' # 檔案們的路徑
 
 filenames = glob.glob(path + "/*.csv")
 
@@ -53,17 +53,7 @@ for file_ in filenames:
 
     Decd = np.array(Decd)
     print(Decd[:10])
-
-    #輸出2D散布圖
-    import matplotlib.pyplot as plt
-    from matplotlib import colors
-    x = Rad
-    y = Decd
-    plt.scatter(x,y, s=1)
-    plt.savefig('RadDecdscatter.png')
-    
-    plt.show()
-    
+  
     x = Rad
     y = Decd
     
@@ -83,7 +73,7 @@ for file_ in filenames:
 
     print(hist)
 
-    np.savetxt('bincount'+s, hist, delimiter=',')
+    B1.to_csv('C:\\findclusters\\cyz1\\bincount'+s+'.csv', index = False, header = False)
     
 
 ###成一維數據
@@ -151,4 +141,4 @@ for file_ in filenames:
     print(Bmat)
     
     #存成匯出37張0,1密度矩陣 64*64
-    np.savetxt('Bmat_test'+s, Bmat, delimiter=',')
+    B1.to_csv('C:\\findclusters\\cyz2\\Bmat'+s+'.csv', index = False, header = False)
