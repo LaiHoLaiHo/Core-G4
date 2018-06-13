@@ -9,7 +9,7 @@ count = 0
 for u in range(2):
     
     ##找星系團
-    #開啟WCH3中的檔案
+    #開啟wch3中的檔案
     RDZO1 = []
     import csv
     f = open('wch3/final.csv', 'r')
