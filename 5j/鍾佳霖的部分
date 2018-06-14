@@ -6,7 +6,7 @@ import matplotlib as mpl
 
 count = 0
 
-for u in range(2):
+for u in range(200):
     
     ##找星系團
     #開啟wch3中的檔案
