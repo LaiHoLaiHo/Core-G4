@@ -131,7 +131,7 @@ for u in range(2):
     plt.title("Redshift =" + str(p), fontsize=20)
     
     #儲存圖片
-    fig.savefig('ccl1/' + str(count) + ".png")
+    fig.savefig('CCL1/' + str(count) + ".png")
     count += 1
     
     #顯示圖片
